@@ -1,17 +1,16 @@
 version: 2.1
 
 jobs:
-  echo:
-    docker:
-      - image: cimg/base:stable
+  burger:
+    macos:
+      xcode: 13.2.0
     steps:
       - run:
-          name: Greet
-          command: echo "I love ${COLOR} builds."
-          environment:
-            COLOR: "green"
+          name: Inspect BASH profile
+          command: |
+            cat -e $HOME/.bash_profile
 
 workflows:
   main:
     jobs:
-      - echo
+      - burger
