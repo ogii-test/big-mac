@@ -1,37 +1,15 @@
 version: 2.1
 
-commands:
-  inspect-bash-profile:
-    steps:
-      - run:
-          name: cat BASH profile
-          command: |
-            cat -e $HOME/.bash_profile
-
 jobs:
-  burger:
-    parameters:
-      xcode:
-        type: string
-        default: 13.2.0
+  dedicated-host:
     macos:
-      xcode: << parameters.xcode >>
+      xcode: "13.3"
+    resource_class: macos.x86.metal.gen1
+    shell: /bin/bash --login -eo pipefail
     steps:
-      - inspect-bash-profile
-      - run:
-          name: Add Newline
-          command: |
-            printf "\n" >> $HOME/.bash_profile
-      - inspect-bash-profile
+      - checkout
 
 workflows:
-  main:
+  big-mac:
     jobs:
-      - burger:
-          matrix:
-            parameters:
-              # See https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
-              xcode:
-                - 13.2.1
-                - 12.5.1
-                - 11.7.0
+      - dedicated-host
