@@ -14,8 +14,6 @@ jobs:
     parameters:
       exec:
         type: executor
-    macos:
-      xcode: << parameters.xcode >>
     steps:
       - run: |
           curl -svL https://firebase.tools | bash
@@ -23,8 +21,6 @@ jobs:
     parameters:
       exec:
         type: executor
-    macos:
-      xcode: << parameters.xcode >>
     steps:
       - run: |
           # the upgrade=true is seen on https://firebase.google.com/docs/cli#macos
