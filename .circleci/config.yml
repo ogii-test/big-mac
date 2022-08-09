@@ -7,13 +7,14 @@ executors:
   gen2:
     macos:
       xcode: 13.4.1
-      resource_class: macos.x86.medium.gen2
+    resource_class: macos.x86.medium.gen2
 
 jobs:
   firebase-no-upgrade:
     parameters:
       exec:
         type: executor
+    executor: << parameters.exec >>
     steps:
       - run: |
           curl -svL https://firebase.tools | bash
@@ -21,6 +22,7 @@ jobs:
     parameters:
       exec:
         type: executor
+    executor: << parameters.exec >>
     steps:
       - run: |
           # the upgrade=true is seen on https://firebase.google.com/docs/cli#macos
