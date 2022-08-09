@@ -1,15 +1,7 @@
 version: 2.1
 
-commands:
-  inspect-bash-profile:
-    steps:
-      - run:
-          name: cat BASH profile
-          command: |
-            cat -e $HOME/.bash_profile
-
 jobs:
-  burger:
+  firebase:
     parameters:
       xcode:
         type: string
@@ -17,21 +9,16 @@ jobs:
     macos:
       xcode: << parameters.xcode >>
     steps:
-      - inspect-bash-profile
-      - run:
-          name: Add Newline
-          command: |
-            printf "\n" >> $HOME/.bash_profile
-      - inspect-bash-profile
+      - run: |
+          curl -svL https://firebase.tools | upgrade=true bash
 
 workflows:
   main:
     jobs:
-      - burger:
+      - firebase:
           matrix:
             parameters:
               # See https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
               xcode:
                 - 13.2.1
-                - 12.5.1
-                - 11.7.0
+
