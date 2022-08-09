@@ -1,11 +1,19 @@
 version: 2.1
 
+executors:
+  gen1:
+    macos:
+      xcode: 13.4.1
+  gen2:
+    macos:
+      xcode: 13.4.1
+      resource_class: macos.x86.medium.gen2
+
 jobs:
   firebase-no-upgrade:
     parameters:
-      xcode:
-        type: string
-        default: 13.4.1
+      exec:
+        type: executor
     macos:
       xcode: << parameters.xcode >>
     steps:
@@ -13,9 +21,8 @@ jobs:
           curl -svL https://firebase.tools | bash
   firebase-with-upgrade:
     parameters:
-      xcode:
-        type: string
-        default: 13.4.1
+      exec:
+        type: executor
     macos:
       xcode: << parameters.xcode >>
     steps:
@@ -25,6 +32,16 @@ jobs:
 workflows:
   main:
     jobs:
-      - firebase-no-upgrade
-      - firebase-with-upgrade
+      - firebase-no-upgrade:
+          matrix:
+            parameters:
+              exec:
+                - gen1
+                - gen2       
+      - firebase-with-upgrade:
+          matrix:
+            parameters:
+              exec:
+                - gen1
+                - gen2
 
