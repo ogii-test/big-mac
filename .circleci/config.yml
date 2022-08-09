@@ -1,24 +1,30 @@
 version: 2.1
 
 jobs:
-  firebase:
+  firebase-no-upgrade:
     parameters:
       xcode:
         type: string
-        default: 13.2.0
+        default: 13.4.1
     macos:
       xcode: << parameters.xcode >>
     steps:
       - run: |
+          curl -svL https://firebase.tools | bash
+  firebase-with-upgrade:
+    parameters:
+      xcode:
+        type: string
+        default: 13.4.1
+    macos:
+      xcode: << parameters.xcode >>
+    steps:
+      - run: |
+          # the upgrade=true is seen on https://firebase.google.com/docs/cli#macos
           curl -svL https://firebase.tools | upgrade=true bash
-
 workflows:
   main:
     jobs:
-      - firebase:
-          matrix:
-            parameters:
-              # See https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
-              xcode:
-                - 13.2.1
+      - firebase-no-upgrade
+      - firebase-with-upgrade
 
