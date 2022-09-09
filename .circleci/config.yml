@@ -1,37 +1,15 @@
 version: 2.1
 
-commands:
-  inspect-bash-profile:
-    steps:
-      - run:
-          name: cat BASH profile
-          command: |
-            cat -e $HOME/.bash_profile
-
-jobs:
-  burger:
-    parameters:
-      xcode:
-        type: string
-        default: 13.2.0
+jobs: # a basic unit of work in a run
+  build: # your job name
     macos:
-      xcode: << parameters.xcode >>
-    steps:
-      - inspect-bash-profile
+      xcode: 12.5.1 # indicate your selected version of Xcode
+    environment:
+      HTTPS_PROXY: "https://invalid"
+      HTTP_PROXY: "http://invalid"
+      https_proxy: "https://invalid"
+      htt_proxy: "http://invalid"
+    steps: # a series of commands to run
+      - checkout  # pull down code from your version control system.
       - run:
-          name: Add Newline
-          command: |
-            printf "\n" >> $HOME/.bash_profile
-      - inspect-bash-profile
-
-workflows:
-  main:
-    jobs:
-      - burger:
-          matrix:
-            parameters:
-              # See https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
-              xcode:
-                - 13.2.1
-                - 12.5.1
-                - 11.7.0
+          command: curl http://www.google.com
