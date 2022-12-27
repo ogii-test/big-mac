@@ -7,14 +7,10 @@ jobs:
     resource_class: macos.x86.medium.gen2
     steps:
       - run: |
-          mkdir deps
-          git clone git@github.com:RedisLabsModules/readies.git deps/readies
-      - run: |
-          ./deps/readies/bin/getpy3
-      - run: |
-          ./deps/readies/bin/getaws
-      - run: |
+          which python3
           python3 --version
+      - run: |
+          python3 -m pip install -q awscli
           python3 -m pip list
 
 workflows:
