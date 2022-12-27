@@ -1,37 +1,21 @@
 version: 2.1
 
-commands:
-  inspect-bash-profile:
-    steps:
-      - run:
-          name: cat BASH profile
-          command: |
-            cat -e $HOME/.bash_profile
-
 jobs:
-  burger:
-    parameters:
-      xcode:
-        type: string
-        default: 13.2.0
+  build-macos:
     macos:
-      xcode: << parameters.xcode >>
+      xcode: 11.7.0
+    resource_class: macos.x86.medium.gen2
     steps:
-      - inspect-bash-profile
-      - run:
-          name: Add Newline
-          command: |
-            printf "\n" >> $HOME/.bash_profile
-      - inspect-bash-profile
+      - run: |
+          mkdir deps
+          git clone git@github.com:RedisLabsModules/readies.git deps/readies
+      - run: |
+          ./deps/readies/bin/getpy3
+          ./deps/readies/bin/getaws
+          python3 --version
+          python3 -m pip list
 
 workflows:
   main:
     jobs:
-      - burger:
-          matrix:
-            parameters:
-              # See https://circleci.com/docs/2.0/testing-ios/#supported-xcode-versions
-              xcode:
-                - 13.2.1
-                - 12.5.1
-                - 11.7.0
+      - build-macos
