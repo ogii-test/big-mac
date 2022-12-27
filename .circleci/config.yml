@@ -11,7 +11,9 @@ jobs:
           git clone git@github.com:RedisLabsModules/readies.git deps/readies
       - run: |
           ./deps/readies/bin/getpy3
+      - run: |
           ./deps/readies/bin/getaws
+      - run: |
           python3 --version
           python3 -m pip list
 
