@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  macos: circleci/macos@2.3.4
+
 executors:
   mac:
     macos:
@@ -20,6 +23,10 @@ jobs:
   screencapture:
     executor: mac
     steps:
+      - macos/add-uitest-permissions
+      - macos/add-permission:
+          bundle-id: "com.apple.Terminal"
+          permission-type: "kTCCServiceScreenCapture"
       - capture:
           after: 60
 
