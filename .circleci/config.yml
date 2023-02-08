@@ -28,7 +28,7 @@ jobs:
           bundle-id: "com.apple.Terminal"
           permission-type: "kTCCServiceScreenCapture"
       # ref: https://support.circleci.com/hc/en-us/articles/4405324304155
-      - run: /Library/Application\ Support/VMware\ Tools/vmware-resolutionSet 1920 1080
+      - run: /Library/Application\ Support/VMware\ Tools/vmware-resolutionSet 1024 768
       - run: open https://fast.com
       - capture:
           after: 20
