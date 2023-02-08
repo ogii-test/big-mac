@@ -16,7 +16,7 @@ commands:
         default: 60
     steps:
       - run: sleep << parameters.after >>
-      - run: screencapture -C captured_<< parameters.after >>.png
+      - run: screencapture captured_<< parameters.after >>.png
       - store_artifacts:
           path: captured_<< parameters.after >>.png
       - store_artifacts:
@@ -39,14 +39,6 @@ jobs:
       - run: open https://google.com
       - capture:
           after: 20
-      - run:
-          name: Capture Screen Recording
-          command: |
-            touch ~/screencapture/tmp.sh
-            echo "screencapture -V30 ~/screencapture/wow_so_hacky.mov" > ~/screencapture/tmp.sh
-            chmod 755 ~/screencapture/tmp.sh
-            open -a Terminal ~/screencapture/tmp.sh
-          # Creates shell script, changes permission of script and launches using Terminal
 
 workflows:
   main:
