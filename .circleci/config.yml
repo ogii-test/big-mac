@@ -27,6 +27,7 @@ jobs:
       - macos/add-permission:
           bundle-id: "com.apple.Terminal"
           permission-type: "kTCCServiceScreenCapture"
+      - run: open https://fast.com
       - capture:
           after: 60
 
