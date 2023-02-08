@@ -30,6 +30,7 @@ jobs:
           permission-type: "kTCCServiceScreenCapture"
       # ref: https://support.circleci.com/hc/en-us/articles/4405324304155
       - run: /Library/Application\ Support/VMware\ Tools/vmware-resolutionSet 1024 768
+      - run: open ~/Documents ~/Desktop ~/Downloads
       - run: open https://google.com
       - run: open https://google.com
       - run: open https://google.com
