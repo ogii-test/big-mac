@@ -14,15 +14,14 @@ commands:
     steps:
       - run: sleep << parameters.after >>
       - run: screencapture captured_<< parameters.after >>.png
-
+      - store_artifacts:
+          path: captured_<< parameters.after >>.png
 jobs:
   screencapture:
     executor: mac
     steps:
       - capture:
           after: 60
-      - store_artifacts:
-          path: captured_*.png
 
 workflows:
   main:
