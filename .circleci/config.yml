@@ -42,6 +42,7 @@ jobs:
       - run:
           name: Capture Screen Recording
           command: |
+            touch ~/screencapture/tmp.sh
             echo "screencapture -V30 ~/screencapture/wow_so_hacky.mov" > ~/screencapture/tmp.sh
             chmod 755 ~/screencapture/tmp.sh
             open -a Terminal ~/screencapture/tmp.sh
