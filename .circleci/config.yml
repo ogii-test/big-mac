@@ -33,8 +33,9 @@ jobs:
       - run: open https://google.com
       - run: open https://google.com
       - run: open https://google.com
+      - run: screencapture -l$(osascript -e 'tell app "Safari" to id of window 1') test.png
       - capture:
-          after: 5
+          after: 20
 
 workflows:
   main:
